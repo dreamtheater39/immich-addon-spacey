@@ -61,7 +61,7 @@ If you prefer building it yourself:
 
 1. 📥 Clone the repo
 ```yaml
-git clone https://github.com/yourusername/immich-addon-spacey.git
+git clone https://github.com/dreamtheater39/immich-addon-spacey.git
 cd immich-addon-spacey
 ```
 3. 📄 Create a .env file
