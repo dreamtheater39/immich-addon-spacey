@@ -1,0 +1,40 @@
+services:
+  spacey_backend:
+    build:
+      context: ./backend
+    container_name: spacey_backend
+    restart: unless-stopped
+    ports:
+      - "${VITE_BACKEND_PORT:-8000}:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./backend:/app/backend
+      - ./.env:/app/.env:ro
+    networks:
+      - immich_default
+
+
+  spacey_frontend:
+    build:
+      context: ./frontend
+    container_name: spacey_frontend
+    restart: unless-stopped
+    ports:
+      - "${VITE_FRONTEND_PORT:-8080}:80"
+    environment:
+      - VITE_BACKEND_URL=${VITE_BACKEND_URL}
+      - VITE_API_KEY=${VITE_API_KEY}
+      - VITE_IMMICH_PUBLIC_URL=${VITE_IMMICH_PUBLIC_URL}
+    depends_on:
+      - spacey_backend
+    networks:
+      - immich_default
+    env_file:
+      - .env
+
+
+
+networks:
+  immich_default:
+    external: true
